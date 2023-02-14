@@ -92,6 +92,7 @@ resource "alkira_connector_azure_vnet" "connector" {
   segment_id       = data.alkira_segment.segment.id
   size             = var.size
 
+  # Onboard VNet CIDR and all associated subnets
   dynamic "vnet_cidr" {
     for_each = {
       for o in local.filter_cidr_options : o.cidr => o
@@ -106,6 +107,7 @@ resource "alkira_connector_azure_vnet" "connector" {
 
   }
 
+  # Onboard specific subnet(s) in place of entire VNet CIDR
   dynamic "vnet_subnet" {
     for_each = {
       for o in local.filter_subnet_options : o.subnet_id => o
