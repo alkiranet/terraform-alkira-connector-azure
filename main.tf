@@ -53,7 +53,6 @@ locals {
     ]
   ])
 
-
   filter_cidr_options = flatten([
     for r in var.vnet_cidr : {
       cidr             = r.cidr
@@ -72,7 +71,6 @@ locals {
       subnet_id        = r.subnet_id
     }
   ])
-
 
 }
 
