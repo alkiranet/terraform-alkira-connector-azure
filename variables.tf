@@ -52,3 +52,28 @@ variable "size" {
   type         = string
   default      = "SMALL"
 }
+
+variable "vnet_cidr" {
+  description = "CIDR of Azure VNet that is being connected"
+
+  type = list(object({
+    cidr             = optional(string)
+    prefix_lists     = optional(list(string), [])
+    routing_options  = optional(string, "ADVERTISE_DEFAULT_ROUTE")
+    service_tags     = optional(list(string))
+  }))
+  default = []
+}
+
+variable "vnet_subnet" {
+  description = "Subnets to onboard in place of entire VNet CIDR block"
+
+  type = list(object({
+    prefix_lists     = optional(list(string), [])
+    routing_options  = optional(string, "ADVERTISE_DEFAULT_ROUTE")
+    service_tags     = optional(list(string))
+    subnet_id        = optional(string)
+    subnet_cidr      = optional(string)
+  }))
+  default = []
+}
